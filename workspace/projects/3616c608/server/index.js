@@ -1,0 +1,1 @@
+const express=require('express'),path=require('path'),app=express(),PORT=process.env.PORT||3000;app.use(express.json());app.use(express.static(path.join(__dirname,'../src')));app.get('/api/health',(req,res)=>res.json({status:'ok'}));app.listen(PORT,()=>console.log(`Running on ${PORT}`));

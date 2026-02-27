@@ -1,0 +1,34 @@
+{
+  "id": "snap_1772148382659_gsbxj",
+  "name": "Snapshot 2/27/2026, 12:26:22 AM",
+  "timestamp": 1772148382659,
+  "projectId": "fae8689c-05d9-4293-946e-e2df61f73316",
+  "fileCount": 5,
+  "files": [
+    {
+      "path": "package.json",
+      "content": "{\n  \"name\": \"test-app\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Build a dashboard app\"\n}",
+      "language": "json"
+    },
+    {
+      "path": "README.md",
+      "content": "# Test App\n\nBuild a dashboard app\n",
+      "language": "markdown"
+    },
+    {
+      "path": "src/index.html",
+      "content": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Test App</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><div class=\"app\"><aside class=\"sidebar\"><div class=\"logo\"><div class=\"logo-icon\">F</div><span>Test App</span></div><nav><a class=\"nav-item active\" href=\"#\">Overview</a><a class=\"nav-item\" href=\"#\">Analytics</a><a class=\"nav-item\" href=\"#\">Products</a><a class=\"nav-item\" href=\"#\">Orders</a><a class=\"nav-item\" href=\"#\">Customers</a><a class=\"nav-item\" href=\"#\">Settings</a></nav></aside><main class=\"main\"><header class=\"topbar\"><h2>Overview</h2><div class=\"topbar-right\"><input type=\"search\" placeholder=\"Search...\" class=\"search-input\"><div class=\"avatar\">U</div></div></header><div class=\"content\"><div class=\"stats-grid\"><div class=\"stat-card\"><div class=\"stat-label\">Total Revenue</div><div class=\"stat-value\">$48,250</div><div class=\"stat-change positive\">+12.5%</div></div><div class=\"stat-card\"><div class=\"stat-label\">Active Users</div><div class=\"stat-value\">2,847</div><div class=\"stat-change positive\">+8.2%</div></div><div class=\"stat-card\"><div class=\"stat-label\">Orders</div><div class=\"stat-value\">1,234</div><div class=\"stat-change positive\">+5.1%</div></div><div class=\"stat-card\"><div class=\"stat-label\">Conversion Rate</div><div class=\"stat-value\">3.2%</div><div class=\"stat-change negative\">-0.4%</div></div></div><div class=\"charts-row\"><div class=\"chart-card\"><h3>Revenue Overview</h3><div class=\"chart-placeholder\"><div class=\"bar\" style=\"height:40%\"></div><div class=\"bar\" style=\"height:65%\"></div><div class=\"bar\" style=\"height:45%\"></div><div class=\"bar\" style=\"height:80%\"></div><div class=\"bar\" style=\"height:55%\"></div><div class=\"bar\" style=\"height:90%\"></div><div class=\"bar\" style=\"height:70%\"></div></div></div><div class=\"chart-card\"><h3>Recent Orders</h3><table class=\"data-table\"><thead><tr><th>ID</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td>#1234</td><td>Ahmed Ali</td><td>$250</td><td><span class=\"badge success\">Completed</span></td></tr><tr><td>#1233</td><td>Sara Hassan</td><td>$180</td><td><span class=\"badge warning\">Pending</span></td></tr><tr><td>#1232</td><td>Omar Khalid</td><td>$420</td><td><span class=\"badge success\">Completed</span></td></tr><tr><td>#1231</td><td>Noor Fatima</td><td>$95</td><td><span class=\"badge danger\">Cancelled</span></td></tr><tr><td>#1230</td><td>Youssef M.</td><td>$310</td><td><span class=\"badge success\">Completed</span></td></tr></tbody></table></div></div></div></main></div><script src=\"app.js\"></script></body></html>",
+      "language": "html"
+    },
+    {
+      "path": "src/styles.css",
+      "content": "*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#0a0a1a;color:#e2e8f0}.app{display:flex;min-height:100vh}.sidebar{width:240px;background:#0f172a;border-right:1px solid #1e293b;padding:20px 0;flex-shrink:0}.logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;font-weight:700;font-size:1.1rem}.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}.nav-item{display:block;padding:10px 20px;color:#64748b;text-decoration:none;font-size:.9rem;border-left:3px solid transparent;transition:all .2s}.nav-item:hover,.nav-item.active{color:#e2e8f0;background:rgba(59,130,246,.08);border-left-color:#3b82f6}.main{flex:1;display:flex;flex-direction:column}.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #1e293b;background:#0f172a/80}.topbar h2{font-size:1.2rem;font-weight:600}.topbar-right{display:flex;align-items:center;gap:12px}.search-input{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:8px 14px;color:#e2e8f0;font-size:.85rem;width:200px;outline:none}.search-input:focus{border-color:#3b82f6}.avatar{width:32px;height:32px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.8rem}.content{padding:24px;flex:1;overflow-y:auto}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}.stat-card{background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:20px}.stat-label{font-size:.8rem;color:#64748b;margin-bottom:4px}.stat-value{font-size:1.6rem;font-weight:700;margin-bottom:4px}.stat-change{font-size:.8rem;font-weight:600}.stat-change.positive{color:#22c55e}.stat-change.negative{color:#ef4444}.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}.chart-card{background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:20px}.chart-card h3{font-size:.95rem;margin-bottom:16px;color:#94a3b8}.chart-placeholder{display:flex;align-items:flex-end;gap:8px;height:160px;padding-top:10px}.bar{flex:1;background:linear-gradient(to top,#3b82f6,#8b5cf6);border-radius:4px 4px 0 0;transition:height .3s}.data-table{width:100%;border-collapse:collapse}.data-table th,.data-table td{padding:10px 12px;text-align:left;border-bottom:1px solid #1e293b;font-size:.85rem}.data-table th{color:#64748b;font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}.badge{padding:3px 8px;border-radius:6px;font-size:.75rem;font-weight:600}.badge.success{background:rgba(34,197,94,.15);color:#22c55e}.badge.warning{background:rgba(245,158,11,.15);color:#f59e0b}.badge.danger{background:rgba(239,68,68,.15);color:#ef4444}@media(max-width:768px){.sidebar{display:none}.charts-row{grid-template-columns:1fr}}",
+      "language": "css"
+    },
+    {
+      "path": "src/app.js",
+      "content": "document.querySelectorAll('.nav-item').forEach(item=>{item.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));item.classList.add('active')})});document.querySelectorAll('.bar').forEach(bar=>{const h=bar.style.height;bar.style.height='0';setTimeout(()=>{bar.style.height=h},100)});console.log('Test App Dashboard loaded');",
+      "language": "javascript"
+    }
+  ]
+}

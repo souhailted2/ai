@@ -1,0 +1,139 @@
+You are Replit Agent. Build a full-stack web app called:
+
+“Personal AI Software Factory v3.1 (offline-first) + v4 (cloud-optional)”
+
+Goal
+Create a local-first “software factory” app where a user describes an app idea (Algerian Darija/Arabic/French/English) and a pipeline of 5 agents collaborates to: understand → analyze → design → generate code → run checks → debug → store memory/preferences. Must work in offline mode (rules engine). Optionally, if a cloud LLM key exists, use it for better understanding/planning.
+
+Core requirements (MVP but real and working)
+1) Full-stack app with:
+   - Frontend: React + TypeScript + Vite + TailwindCSS, dark/light toggle
+   - Backend: Node.js + Express + WebSocket for live pipeline events
+   - DB: PostgreSQL + Drizzle ORM (use Replit Postgres if available)
+2) 7-panel IDE-style UI:
+   Panel 1: Chat
+   Panel 2: Live Preview (iframe)
+   Panel 3: Files Explorer (tree)
+   Panel 4: Code Editor (Monaco editor)
+   Panel 5: Agents Pipeline (stepper timeline + status)
+   Panel 6: Monitoring (logs/events/errors)
+   Panel 7: Terminal (minimal: show command output from backend “runner”)
+   Include keyboard shortcuts: Ctrl+S save file, Ctrl+1..7 switch panels.
+3) Upload images:
+   - Max 5MB
+   - Block SVG and HTML uploads
+   - Store safely (local disk) and reference in generated projects
+4) Security:
+   - CSP headers
+   - Normalize Arabic text input (basic normalization to avoid spoofing)
+5) Multi-language handling:
+   - Detect Darija/Arabic/French/English and reply in same language style.
+   - Support common Darija words (واش، كيفاش، بزاف، بصح، راني، وين، علاش…).
+
+Agent architecture
+Implement 5 agents as modules with a shared “Orchestrator”:
+A) ChattyCoordinator:
+   - Entry point for user messages
+   - Classifies intent among at least: greet, build, fix, improve, explain, summarize, show-files, open-file, edit-file, run, deploy, help, settings, memory, status, cancel, reset, unknown.
+   - Asks clarifying questions if request is ambiguous.
+B) SmartAnalyzer:
+   - Extracts requirements + estimates complexity (simple/medium/complex)
+   - Produces a structured spec (JSON) and asks for confirmation before building if low confidence.
+C) CollaborativeCoder:
+   - Generates code into a “project workspace” folder: /workspace/projects/<slug>/
+   - For MVP, support at least these generators:
+     1) Snake game (web)
+     2) Pro calculator
+     3) Todo/Kanban
+     4) Simple landing page
+   - Must produce runnable code (Vite or static) and a README inside each generated project.
+   - If an uploaded image is referenced (“حطها كلوجو”), include it in generated project assets and wire it in UI.
+D) FriendlyDebugger:
+   - If user says “it doesn’t work” or a build/run fails, read logs, identify likely cause, propose fix in simple language, then apply fix (with user confirmation toggle in settings: auto-fix on/off).
+E) MemoryKeeper:
+   - Store preferences and facts in Postgres:
+     - preferred stack (react, express, etc)
+     - last N projects
+     - common fixes
+     - user language preference
+   - Use memory to influence next builds.
+
+Offline-first “Brain”
+Default mode MUST work without external APIs:
+- Implement a deterministic rules engine:
+  - intent classification via patterns + keywords (Darija/Arabic/French/English)
+  - simple entity extraction (project type, name, tech, pages, auth, etc)
+  - confidence scoring
+- Provide a clear system prompt library for each agent even in offline mode (used for logging and future LLM mode).
+
+Cloud-optional LLM mode (v4)
+If env var exists, use an OpenAI-compatible API for better reasoning:
+- Support GROQ (OpenAI-compatible endpoint) OR generic OPENAI_BASE_URL + OPENAI_API_KEY.
+- Env vars:
+  - LLM_MODE=offline|cloud (default offline)
+  - OPENAI_BASE_URL (optional)
+  - OPENAI_API_KEY (optional)
+  - OPENAI_MODEL (optional)
+  - GROQ_API_KEY (optional)
+  - GROQ_MODEL (optional)
+- Router logic:
+  - If LLM_MODE=cloud and a key exists, use cloud for: intent + analysis + planning.
+  - Never block offline mode.
+
+“Runner” tool (for agent-like behavior)
+Implement a safe backend runner that can:
+- list files in a generated project
+- read file
+- write file
+- run npm commands inside that project folder (with allowlist: npm install, npm run dev, npm run build, npm test)
+Capture stdout/stderr and stream to Monitoring + Terminal panels through WebSocket events.
+
+Live Preview
+- For MVP, provide a “preview server” that serves the selected generated project on a port and load it in an iframe in the UI.
+- Add a dropdown to choose which generated project to preview.
+
+Data model (Drizzle)
+Tables:
+- users (single local user ok)
+- conversations, messages
+- projects (slug, name, type, path, createdAt)
+- memories (key, value, updatedAt)
+- events/logs (optional but helpful)
+
+UX behavior (important)
+- The pipeline should be visible and animated:
+  1) Coordinator
+  2) Analyzer
+  3) Coder
+  4) Runner (build/test)
+  5) Debugger (if needed)
+  6) Memory update
+- Each step emits structured events over WebSocket: started/progress/completed/failed with timestamps.
+
+Acceptance criteria (must pass)
+1) I can run the app with one command (npm run dev) and it starts backend+frontend.
+2) I type in chat (Darija): “بغيت لعبة الثعبان” and it:
+   - asks clarifying question if needed
+   - generates a runnable snake game project
+   - shows files in explorer
+   - opens main file in Monaco editor
+   - preview loads the game
+3) If I say “ما تخدمش/it doesn’t work”, it reads logs, fixes, and reruns.
+4) Offline mode works even with no API keys.
+5) Cloud mode works if I provide GROQ_API_KEY (or OPENAI_BASE_URL/KEY).
+
+Deliverables
+- A working repository with clear folder structure:
+  /server
+  /client
+  /shared (types/zod schemas)
+  /workspace/projects (generated)
+- .env.example
+- README with setup steps and usage examples in Arabic + English.
+
+Implementation guidance
+- Use Zod schemas for agent outputs and event payloads.
+- Use Zustand (or similar) on frontend to manage UI state (selected project/file/panel).
+- Keep code clean and modular. Prefer TypeScript everywhere.
+
+Start by scaffolding, then implement MVP end-to-end, then add generators and debugger loop.

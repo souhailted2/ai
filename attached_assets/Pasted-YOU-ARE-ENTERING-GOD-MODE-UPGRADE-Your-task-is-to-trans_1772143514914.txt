@@ -1,0 +1,182 @@
+YOU ARE ENTERING GOD MODE UPGRADE.
+
+Your task is to transform my Personal AI Software Factory into an autonomous AI software company-level platform.
+
+==================================================
+CRITICAL RULES
+==================================================
+
+- Personal local platform only.
+- No paid APIs.
+- No credits systems.
+- Offline-first architecture.
+- Safe upgrades only.
+- NEVER overwrite existing working components.
+- Always extend modularly.
+
+==================================================
+EXTERNAL KNOWLEDGE SOURCE
+==================================================
+
+Analyze this repository as architectural inspiration:
+
+https://github.com/FoundationAgents/OpenManus
+
+DO NOT blindly copy files.
+
+Instead:
+
+1. Study agent orchestration design.
+2. Extract architecture patterns.
+3. Understand task planning logic.
+4. Learn tool usage structure.
+5. Recreate compatible implementations adapted to THIS platform.
+
+Goal:
+Adopt OpenManus intelligence model while keeping my system lightweight and local.
+
+==================================================
+CREATE NEW META-AGENT SYSTEM
+==================================================
+
+Add a Supervisor Agent (AI CEO).
+
+Responsibilities:
+
+- Coordinate all agents.
+- Break complex goals into tasks.
+- Decide execution order.
+- Monitor performance.
+- Suggest system evolution.
+
+==================================================
+ADVANCED AGENT SET (EXPAND CURRENT)
+==================================================
+
+Existing agents must evolve into:
+
+Planner → Strategic Planner
+Architect → System Architect
+Developer → Senior Developer
+Debugger → QA Engineer
+Optimizer → Performance Engineer
+Deployer → DevOps Engineer
+
+ADD NEW AGENTS:
+
+1. Research Agent
+   - Web search (optional toggle)
+   - Documentation reader
+   - GitHub analyzer
+   - Trend discovery
+
+2. Tool Builder Agent
+   - Creates internal tools automatically.
+
+3. UI Designer Agent
+   - Generates layouts and UX improvements.
+
+4. Refactor Agent
+   - Modernizes old projects.
+
+5. Memory Agent
+   - Stores long-term learning.
+
+==================================================
+AUTONOMOUS THINKING LOOP
+==================================================
+
+Implement controlled loop:
+
+observe →
+analyze →
+research →
+plan →
+propose →
+await approval →
+execute.
+
+NEVER self-modify without permission.
+
+==================================================
+REPLIT-LEVEL IDE EXPANSION
+==================================================
+
+Upgrade IDE to include:
+
+- Multi-file editing
+- Split editor view
+- Live preview auto refresh
+- Integrated terminal
+- Dependency manager
+- Project templates
+- Git-style version snapshots
+- Error highlighting
+- Command palette
+
+==================================================
+SELF LEARNING MEMORY
+==================================================
+
+System must remember:
+
+- User preferred stacks
+- Successful architectures
+- Frequent project types
+
+Use memory to improve future generations.
+
+==================================================
+SMART PROJECT GENERATION
+==================================================
+
+When user writes idea in Arabic or English:
+
+Automatically:
+
+Idea →
+Plan →
+Architecture →
+Code →
+Run →
+Preview →
+Improve.
+
+==================================================
+SAFE INTERNET MODE
+==================================================
+
+When enabled:
+
+Research Agent may:
+- search best practices
+- read documentation
+- analyze repositories
+
+But must:
+- summarize findings
+- request approval before applying changes.
+
+==================================================
+PERFORMANCE MODE
+==================================================
+
+- asynchronous agent execution
+- websocket live updates
+- background processing
+- non-blocking UI
+
+==================================================
+FINAL OBJECTIVE
+==================================================
+
+The platform must behave like:
+
+A PERSONAL AUTONOMOUS SOFTWARE COMPANY.
+
+User provides idea.
+AI team builds complete working software.
+System continuously improves under supervision.
+
+Upgrade existing system incrementally.
+Never rebuild from scratch.

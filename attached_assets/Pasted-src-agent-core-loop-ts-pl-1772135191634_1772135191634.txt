@@ -1,0 +1,243 @@
+src/
+├── agent/
+│   ├── core/
+│   │   ├── loop.ts              # ✅ جديد - حلقة الوكيل
+│   │   ├── planner.ts           # ✅ محسّن
+│   │   └── memory/
+│   │       ├── keeper.ts        # موجود - يحتاج تطوير
+│   │       ├── episodic.ts      # ✅ جديد
+│   │       └── scratchpad.ts    # ✅ جديد
+│   │
+│   ├── sandbox/
+│   │   ├── docker.ts            # ✅ جديد - إدارة containers
+│   │   ├── executor.ts          # ✅ جديد - تنفيذ الكود
+│   │   ├── browser.ts           # ✅ جديد - Playwright wrapper
+│   │   └── security.ts          # ✅ جديد - سياسات الأمان
+│   │
+│   ├── tools/
+│   │   ├── registry.ts          # ✅ جديد - سجل الأدوات
+│   │   ├── codeact.ts           # ✅ جديد - توليد الكود
+│   │   └── implementations/     # ✅ جديد
+│   │       ├── web.ts
+│   │       ├── shell.ts
+│   │       ├── python.ts
+│   │       └── files.ts
+│   │
+│   └── orchestrator/
+│       ├── multi-agent.ts       # ✅ جديد - تنسيق متعدد الوكلاء
+│       └── task-router.ts       # ✅ جديد - توزيع المهام
+│
+├── server/
+│   ├── api/
+│   │   ├── sandbox.ts           # ✅ جديد - endpoints
+│   │   └── agents.ts            # ✅ جديد - إدارة الوكلاء
+│   │
+│   └── websocket/
+│       └── agent-stream.ts      # ✅ جديد - بث مباشر
+│
+├── components/
+│   └── agent/
+│       ├── SandboxTerminal.tsx  # ✅ جديد - طرفية تفاعلية
+│       ├── CodeActViewer.tsx    # ✅ جديد - عرض الكود المنفذ
+│       ├── PlanProgress.tsx     # ✅ جديد - تتبع الخطة
+│       └── AgentSwarm.tsx       # ✅ جديد - عدة وكلاء نشطة
+│
+└── docker/
+├── sandbox.Dockerfile       # ✅ جديد
+└── docker-compose.yml       # ✅ تحديث
+
+---
+
+## مواصفات الـ API الجديدة
+
+```typescript
+// POST /api/agent/execute
+interface ExecuteRequest {
+  task: string;
+  mode: 'single' | 'multi-agent' | 'codeact-only';
+  preferences: {
+    autoApprove: boolean;      // الموافقة التلقائية
+    maxIterations: number;     // حد التكرار
+    timeoutMinutes: number;
+    requireHumanFor: string[]; // ['payment', 'deploy-prod', 'delete']
+  };
+  context?: {
+    memories?: string[];       // ذكريات ذات صلة
+    files?: string[];          // ملفات للمرجعية
+    previousRuns?: string[];   // تجارب سابقة
+  };
+}
+
+// Response: WebSocket stream
+interface AgentEvent {
+  type: 'thought' | 'plan' | 'code' | 'executing' | 
+        'observation' | 'error' | 'correction' | 'complete';
+  timestamp: number;
+  payload: any;
+  agentId?: string;  // للـ multi-agent
+}
+```
+
+---
+
+## متطلبات Docker الجديدة
+
+```dockerfile
+# docker/sandbox.Dockerfile
+FROM ubuntu:22.04
+
+# الأساسيات
+RUN apt-get update && apt-get install -y \
+    python3.10 python3-pip nodejs npm \
+    git curl wget unzip \
+    chromium-browser fonts-noto \
+    && rm -rf /var/lib/apt/lists/*
+
+# Playwright
+RUN npx playwright install chromium
+RUN npx playwright install-deps chromium
+
+# Python packages شائعة
+COPY requirements-agent.txt .
+RUN pip install -r requirements-agent.txt
+
+# مستخدم غير root
+RUN useradd -m -s /bin/bash agent
+USER agent
+WORKDIR /home/agent
+
+# الحجم المسموح
+VOLUME ["/home/agent/workspace"]
+```
+
+```yaml
+# docker-compose.yml (الجزء الجديد)
+services:
+  agent-sandbox:
+    build:
+      context: .
+      dockerfile: docker/sandbox.Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    network_mode: none  # افتراضي، يُفتح حسب الحاجة
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+```
+
+---
+
+## اختبارات E2E المطلوبة
+
+```typescript
+// tests/e2e/agent.manus.spec.ts
+describe('Manus-like Agent', () => {
+  test('T010 - CodeAct execution', async () => {
+    const result = await agent.execute(`
+      ابحث لي عن آخر أخبار الذكاء الاصطناعي
+      وخزن الملخص في news_summary.md
+    `);
+    
+    expect(result.codeGenerated).toContain('search_web');
+    expect(result.filesCreated).toContain('news_summary.md');
+  });
+
+  test('T011 - Multi-agent collaboration', async () => {
+    const task = 'ابني تطبيق متكامل مع Backend وFrontend';
+    const result = await agent.execute(task, { mode: 'multi-agent' });
+    
+    expect(result.agentsInvolved).toHaveLength(3); // researcher, coder, designer
+    expect(result.duration).toBeLessThan(600000); // 10 دقائق
+  });
+
+  test('T012 - Self-correction on error', async () => {
+    // مهمة مقصود فيها خطأ
+    const result = await agent.execute(`
+      شغل npm start في مشروع ما عندوش package.json
+    `);
+    
+    expect(result.corrections).toBeGreaterThan(0);
+    expect(result.finalStatus).toBe('success');
+  });
+
+  test('T013 - Long-running task with checkpoints', async () => {
+    const result = await agent.execute(`
+      حلل 1000 صفحة من البيانات وعمل تقرير شامل
+    `, { timeoutMinutes: 30 });
+    
+    expect(result.checkpoints).toHaveLength.greaterThan(3);
+    expect(result.interrupted).toBeFalsy();
+  });
+});
+```
+
+---
+
+## الخطة التنفيذية المرحلية
+
+| المرحلة | المدة | التركيز | Deliverable |
+|--------|-------|--------|-------------|
+| **M1** | 1 أسبوع | CodeAct + Sandbox | تنفيذ كود Python في Docker |
+| **M2** | 1 أسبوع | Advanced Tools | Browser, Shell, Files كامل |
+| **M3** | 1 أسبوع | Memory + RAG | ذاكرة هرمية + بحث دلالي |
+| **M4** | 1 أسبوع | Multi-Agent | عدة وكلاء بالتوازي |
+| **M5** | 3 أيام | Polish + Tests | UI محسّن + E2E tests |
+
+---
+
+## أمثلة على تفاعلات المستخدم
+
+### المثال 1: بحث وتلخيص
+
+المستخدم: لخص لي آخر 5 أوراق بحثية عن RAG
+الوكيل:
+[PLAN] 1. البحث في arXiv  2. تحميل الأوراق  3. استخراج النقاط الرئيسية
+4. توليد الملخص  5. حفظ في RAG_Research_2024.md
+[CODE] ```python
+papers = search_arxiv("Retrieval Augmented Generation", limit=5, sort="relevance")
+for paper in papers:
+pdf = download(paper.pdf_url)
+text = extract_text(pdf)
+summary = summarize(text, model="gpt-4")
+save_to_scratchpad(f"{paper.id}_summary.md", summary)
+[EXECUTING] ... [OBSERVATION] ✅ تم [COMPLETED] ملف RAG_Research_2024.md جاهز
+
+المثال 2: بناء تطبيق كامل
+المستخدم: عملي SaaS لإدارة المهام متعدد المستخدمين
+
+الوكيل: [تفعيل 3 وكلاء بالتوازي]
+- Researcher: يحلل المنافسين ويجمع أفضل الممارسات
+- Coder: يبني Backend مع API وقاعدة بيانات  
+- Designer: ينتج wireframes وCSS
+
+[Orchestrator] تجميع النتائج... [Runner] تشغيل واختبار...
+[Deployer] جاهز للنشر على: [Preview URL]
+
+
+ملاحظات أمان حاسمة
+typescriptDownloadCopy codeconst SECURITY_RULES = {
+  sandbox: {
+    noRoot: true,
+    noOutboundExcept: ['80', '443'],
+    noSensitiveMounts: true,
+    killOnTimeout: true,
+    maxProcesses: 50
+  },
+  
+  codeExecution: {
+    noEval: true,
+    noImportDynamic: ['os.system', 'subprocess.call'],
+    allowedModules: WHITELIST,
+    scanForSecrets: true  // منع تسريب API keys
+  },
+  
+  browser: {
+    noFileUpload: true,
+    noDownloadExcept: ['.pdf', '.txt', '.md'],
+    noCredentialAutofill: true,
+    maxNavigationDepth: 10
+  }
+};

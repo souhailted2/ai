@@ -1,0 +1,282 @@
+# طلب تطوير: إضافة ميزات Manus AI Agent إلى التطبيق
+
+## السياق
+عندي تطبيق AI Agent موجود (v3.1/v4.0) مع 6 وكلاء: Planner → Analyst → Coder → Runner → Debugger → Deployer. بغيت نضيف قدرات مستوحاة من Manus AI Agent باش نخلي التطبيق أوتونوموس أكتر.
+
+---
+
+## المتطلبات العامة
+
+### 1. CodeAct Architecture (الأهم)
+بدل ما الوكيل يرجع JSON للأكشن، خاصو يرجع كود Python قابل للتنفيذ.
+
+```typescript
+// قبل (الطريقة القديمة)
+{ "action": "search", "query": "weather tokyo" }
+
+// بعد (CodeAct)
+```python
+import requests
+from agent_tools import search_web, browse_url
+
+# البحث والتصفح
+results = search_web("weather tokyo")
+page = browse_url(results[0]["url"])
+
+# استخراج المعلومات
+weather_data = extract_weather(page)
+print(f"Temperature: {weather_data['temp']}°C")
+save_to_file("weather_report.md", format_report(weather_data))
+```
+```
+
+### 2. Cloud Sandbox Environment
+
+```typescript
+interface SandboxConfig {
+  // البيئة
+  os: 'ubuntu:22.04';
+  runtime: ['python3.10', 'node20', 'deno'];
+  
+  // الأدوات المتاحة
+  tools: {
+    shell: { sudo: false, timeout: 300000 },
+    browser: { headless: true, engine: 'playwright' },
+    filesystem: { root: '/home/agent', persistent: true },
+    codeExecution: { languages: ['python', 'javascript', 'bash'] }
+  };
+  
+  // الشبكة
+  network: {
+    outbound: true,
+    allowedHosts: ['*.github.com', 'npmjs.org', 'pypi.org'],
+    blockedHosts: ['localhost', '127.0.0.1', '169.254.169.254']
+  };
+}
+```
+
+### 3. Multi-Agent Parallel Execution
+
+```typescript
+interface MultiAgentOrchestrator {
+  // تجزيء المهمة
+  decompose(task: string): SubTask[];
+  
+  // توزيع على وكلاء متخصصين
+  assign(subtasks: SubTask[]): AgentInstance[];
+  
+  // كل وكيل في sandbox منفصل
+  agents: {
+    researcher: { tools: ['browser', 'search', 'pdf'] },
+    coder: { tools: ['shell', 'files', 'git'] },
+    analyst: { tools: ['python', 'sql', 'visualization'] }
+  };
+  
+  // تجميع النتائج
+  integrate(results: AgentResult[]): FinalOutput;
+}
+```
+
+### 4. Advanced Memory System (تحسين T001 الحالي)
+
+```typescript
+interface EnhancedMemory extends CurrentMemory {
+  // ذاكرة هرمية
+  layers: {
+    working: { ttl: '1h', max: 100 };      // ذاكرة العمل
+    shortTerm: { ttl: '24h', max: 1000 };  // قصيرة المدى
+    longTerm: { persistent: true };         // طويلة المدى (Postgres)
+    episodic: { compress: true };           // ملخص التجارب
+  };
+  
+  // RAG كامل
+  retrieval: {
+    embedding: 'text-embedding-3-small',
+    vectorStore: 'pgvector',
+    reRanking: true,
+    contextWindow: 128000
+  };
+  
+  // صندوق الأفكار (Scratchpad)
+  scratchpad: {
+    todo: 'todo.md',           // مهام حالية
+    notes: 'notes/',           // ملاحظات بحث
+    drafts: 'drafts/',         // مسودات
+    checkpoints: '.checkpoints/' // نقاط استعادة
+  };
+}
+```
+
+### 5. Iterative Agent Loop (القلب الجديد)
+
+```typescript
+interface AgentLoop {
+  state: 'idle' | 'analyzing' | 'planning' | 'executing' | 'observing';
+  
+  cycle(): Promise<void> {
+    // 1. تحليل السياق
+    const context = await this.analyze(this.eventStream.getRecent(10));
+    
+    // 2. تخطيط أو تعديل الخطة
+    const plan = await this.planner.revise(context, this.scratchpad.todo);
+    
+    // 3. اختيار الأداة المناسبة
+    const toolSelection = await this.selectTool(plan.currentStep);
+    
+    // 4. توليد كود التنفيذ (CodeAct)
+    const code = await this.generateAction(toolSelection, context);
+    
+    // 5. تنفيذ في Sandbox
+    const observation = await this.sandbox.execute(code, {
+      timeout: toolSelection.timeout,
+      onStream: (chunk) => this.ws.emit('output', chunk)
+    });
+    
+    // 6. تسجيل النتيجة
+    this.eventStream.push({ type: 'observation', data: observation });
+    
+    // 7. التحقق من الإكمال
+    if (plan.isComplete()) {
+      return this.finalize();
+    }
+    
+    // 8. تصحيح ذاتي إذا لزم
+    if (observation.error) {
+      const fix = await selfDebug(code, observation.error);
+      this.eventStream.push({ type: 'correction', data: fix });
+    }
+    
+    // تكرار
+    return this.cycle();
+  }
+}
+```
+
+### 6. Tool System with CodeAct
+
+```typescript
+// agent_tools.py - المكتبة الأساسية
+class AgentTools:
+    @tool(description="Search the web with SERP API")
+    def search_web(query: str, num_results: int = 5) -> List[SearchResult]:
+        pass
+    
+    @tool(description="Browse and interact with web pages")
+    def browse_url(
+        url: str,
+        actions: List[Click | Fill | Scroll] = []
+    ) -> PageContent:
+        pass
+    
+    @tool(description="Execute Python code with full libraries")
+    def execute_python(
+        code: str,
+        dependencies: List[str] = [],
+        save_artifacts: bool = true
+    ) -> ExecutionResult:
+        # تثبيت deps تلقائيا
+        # تشغيل في sandbox
+        # حفظ الملفات المنتجة
+        pass
+    
+    @tool(description="Run shell commands safely")
+    def shell(
+        command: str,
+        allowed_commands: List[str] = SAFE_LIST,
+        working_dir: str = "/home/agent"
+    ) -> ShellOutput:
+        pass
+    
+    @tool(description="File operations with version control")
+    def file(
+        operation: 'read' | 'write' | 'append' | 'delete' | 'list',
+        path: str,
+        content: Optional[str] = None
+    ) -> FileResult:
+        pass
+    
+    @tool(description="Interact with databases")
+    def database(
+        connection_string: str,
+        query: str,
+        operation: 'query' | 'execute' | 'schema'
+    ) -> QueryResult:
+        pass
+    
+    @tool(description="Generate data visualizations")
+    def visualize(
+        data: Union[pd.DataFrame, List[Dict]],
+        chart_type: 'line' | 'bar' | 'scatter' | 'table',
+        save_path: str
+    ) -> Visualization:
+        pass
+```
+
+### 7. Planner Module (محسّن)
+
+```typescript
+interface Planner {
+  generatePlan(goal: string): Plan {
+    return {
+      id: uuid(),
+      goal,
+      steps: [
+        {
+          id: 'step-1',
+          description: ' gather requirements',
+          toolHints: ['search_web', 'browse_url'],
+          dependencies: [],
+          estimatedTime: '5m',
+          checkpoint: true  // نقطة استعادة
+        },
+        // ...
+      ],
+      checkpoints: [],  // للاستعادة
+      alternatives: {}  // خطط بديلة
+    };
+  }
+  
+  // إعادة التخطيط الديناميكي
+  replan(current: Plan, obstacle: Obstacle): Plan {
+    // حفظ الحلقة الحالية
+    this.checkpoints.push(current.toCheckpoint());
+    
+    // توليد مسار بديل
+    return this.generateAlternative(current, obstacle);
+  }
+}
+```
+
+### 8. Knowledge Integration (RAG)
+
+```typescript
+interface KnowledgeSystem {
+  sources: {
+    web: { priority: 1, realTime: true },
+    apis: { weather: true, finance: true, maps: true },
+    uploaded: { docs: [], maxSize: '100MB' },
+    custom: { vectorStore: 'company_knowledge' }
+  };
+  
+  retrieve(query: string, context: Context): Knowledge {
+    // 1. توليد embedding
+    const embedding = this.embed(query + context.summary);
+    
+    // 2. بحث متعدد المصادر
+    const results = await Promise.all([
+      this.vectorSearch(embedding),
+      this.webSearch(query),
+      this.apiFetch(query)
+    ]);
+    
+    // 3. إعادة ترتيب
+    return this.reRank(results, context);
+  }
+}
+```
+
+---
+
+## الملفات المطلوب إنشاؤها/تعديلها
+
+### هيكل المشروع الجديد

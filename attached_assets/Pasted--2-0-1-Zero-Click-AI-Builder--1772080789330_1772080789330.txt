@@ -1,0 +1,158 @@
+🌟 النسخة الأسطورية 2.0 — قائمة الميزات المطلوب إضافتها
+1️⃣ Zero-Click AI Builder
+
+تكتب فكرة واحدة (عربية أو إنجليزية) → Agent:
+
+يختار tech stack تلقائياً
+
+ينشئ مشروع كامل
+
+يولد ملفات الكود (Front & Back)
+
+يركب dependencies
+
+يشغل المشروع مباشرة
+
+يظهر Live Preview
+
+يصلح أي أخطاء تلقائياً
+
+يولد وثائق المشروع
+
+2️⃣ Multi-Agent System كامل
+
+Planner Agent: يحلل الفكرة ويحدد أفضل stack
+
+Architect Agent: يصمم structure المشروع
+
+UI Designer Agent: ينشئ واجهات جميلة
+
+Backend Agent: يبني APIs والـ database schema
+
+Developer Agent: يكتب كل الكود
+
+Debug Agent: يكتشف الأخطاء ويصلحها تلقائياً
+
+Optimizer Agent: يحسن الأداء والكود
+
+Test Agent: ينشئ اختبارات وحدات تلقائياً
+
+Documentation Agent: يولد دليل المشروع بالكامل
+
+Memory Agent: يخزن خبرات المشاريع السابقة
+
+Deployment Agent: يحضر المشروع للنشر المحلي
+
+Monitor Agent: يعرض الأداء والـ logs في الوقت الحقيقي
+
+3️⃣ IDE كامل واحترافي
+
+Monaco Editor (VS Code-like)
+
+Multi-tab Editing + Minimap + Syntax Highlighting
+
+Auto-complete + IntelliSense + Inline AI Suggestions
+
+Auto imports, bracket matching, code formatting
+
+Search, rename, move, delete across project
+
+Drag & Drop files
+
+Dark / Light mode + font customization (JetBrains Mono, Inter)
+
+Resizable panels
+
+Undo / Redo / Clipboard features
+
+File Explorer + Terminal + Agent Pipeline Panel + Live Preview
+
+4️⃣ Live Preview & Runtime
+
+Embedded iframe preview لجميع HTML/CSS/JS وNode.js apps
+
+Responsive simulation (desktop + mobile)
+
+Hot reload on file changes
+
+Error overlay عند حدوث مشاكل
+
+Terminal logs realtime
+
+5️⃣ Database & Backend
+
+Local PostgreSQL support + Replit DB style key-value
+
+WebSocket support للتطبيقات realtime
+
+API generator تلقائي
+
+دعم تخزين البيانات بدون ربط سحابي
+
+6️⃣ AI Assistant Features
+
+فهم العربي والانجليزية بالكامل
+
+تفسير الكود بالعربية أو الانجليزية
+
+تصحيح الأخطاء آلياً
+
+شرح كل وظيفة أو Class
+
+توليد full-stack apps من Prompt واحد
+
+اقتراح تحسينات الأداء والكود
+
+توليد واجهات، Forms، Databases، APIs تلقائياً
+
+توليد ألعاب مثل Snake, Tic-Tac-Toe, Calculator
+
+7️⃣ Self-Healing / Self-Improving Loop
+
+كل مشروع يشتغل → Agent يراقب الأخطاء
+
+إصلاح تلقائي + إعادة تشغيل + تحسين الأداء
+
+Retest حتى يكون المشروع مستقر
+
+Cache للمشاريع لتسريع إعادة التحميل
+
+8️⃣ Project Management
+
+إنشاء، حذف، استنساخ المشاريع
+
+Templates جاهزة لكل أنواع التطبيقات
+
+Snapshots + Rollback للنسخ السابقة
+
+Version control محلي
+
+Auto-save + Recovery
+
+9️⃣ Security & Sandbox
+
+تشغيل كل مشروع داخل sandbox محلي
+
+تحديد CPU/RAM limits
+
+منع أوامر خطيرة
+
+Local-only execution
+
+🔟 Extras & Small Features
+
+Quick Idea Suggestions
+
+Copy Code to Clipboard
+
+Pre-seeded example projects
+
+Inline Documentation generation
+
+Monitoring dashboard لكل Agents والـ projects
+
+Mobile preview + responsive simulation
+
+Drag & drop + keyboard shortcuts
+
+Arabic keyword support للألعاب والـ Apps

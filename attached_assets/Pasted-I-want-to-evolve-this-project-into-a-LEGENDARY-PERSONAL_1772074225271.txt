@@ -1,0 +1,223 @@
+I want to evolve this project into a LEGENDARY PERSONAL AI SOFTWARE FACTORY — a complete local AI-powered development ecosystem that includes ALL features found in modern AI coding platforms similar to Replit, Cursor, and advanced AI IDEs.
+
+This system must run FULLY LOCALLY with ZERO payments, ZERO credits, ZERO external APIs, and ZERO cloud dependencies.
+
+━━━━━━━━━━━━━━━━━━
+🌍 CORE PHILOSOPHY
+━━━━━━━━━━━━━━━━━━
+
+The platform must behave like an autonomous software company powered by AI agents.
+
+User provides only an IDEA → system plans, builds, fixes, runs, improves, documents, and maintains the application automatically.
+
+Offline-first architecture is mandatory.
+
+━━━━━━━━━━━━━━━━━━
+🧠 ULTRA AI ENGINE (Arabic + English Native)
+━━━━━━━━━━━━━━━━━━
+
+Upgrade AI to:
+
+* Fully understand Arabic, English, and mixed prompts
+* Detect user intent automatically
+* Convert natural language into architecture decisions
+* Explain all outputs in Arabic or English
+* Maintain persistent project memory
+* Learn from previous projects locally
+
+Capabilities:
+
+* Full-stack generation from one sentence
+* Multi-file editing safely
+* Self-debugging loops
+* Automatic refactoring
+* Performance optimization
+* Code explanation
+* Documentation writing
+* Test generation
+* UI generation
+* Database schema creation
+
+━━━━━━━━━━━━━━━━━━
+🤖 LEGENDARY MULTI-AGENT SYSTEM
+━━━━━━━━━━━━━━━━━━
+
+Create coordinated autonomous agents:
+
+1. Vision Agent — interprets idea meaning
+2. Planner Agent — creates execution roadmap
+3. Architect Agent — designs system architecture
+4. UI Designer Agent — generates UI layouts
+5. Backend Engineer Agent — builds APIs
+6. Frontend Engineer Agent — builds interfaces
+7. Developer Agent — writes integrated code
+8. Debug Agent — detects & fixes errors continuously
+9. Test Agent — creates and runs tests
+10. Optimizer Agent — improves performance & structure
+11. Security Agent — scans vulnerabilities
+12. Documentation Agent — writes guides automatically
+13. Memory Agent — stores learned patterns
+14. Deployment Agent — prepares LOCAL builds only
+15. Monitor Agent — tracks runtime health
+
+Agents must communicate through an orchestration pipeline with visible progress stages.
+
+━━━━━━━━━━━━━━━━━━
+💻 COMPLETE AI IDE (ALL FEATURES)
+━━━━━━━━━━━━━━━━━━
+
+IDE must include:
+
+Editor:
+
+* Monaco Editor
+* multi-tab editing
+* minimap
+* IntelliSense-like suggestions
+* inline AI editing
+* code actions
+* refactor tools
+* bracket matching
+* formatting
+* auto imports
+
+File System:
+
+* drag & drop files
+* rename/move/delete
+* search across workspace
+* project tree filters
+
+Themes:
+
+* dark/light modes
+* customizable fonts
+* layout resizing
+
+━━━━━━━━━━━━━━━━━━
+🖥️ LIVE PREVIEW & APP RUNTIME
+━━━━━━━━━━━━━━━━━━
+
+* Instant live preview iframe
+* hot reload
+* runtime error overlay
+* multiple preview environments
+* mobile preview mode
+* responsive simulation
+
+━━━━━━━━━━━━━━━━━━
+🧾 SMART TERMINAL
+━━━━━━━━━━━━━━━━━━
+
+Terminal must support:
+
+* npm commands
+* process monitoring
+* colored logs
+* restart buttons
+* background tasks
+* command history
+
+━━━━━━━━━━━━━━━━━━
+📦 PROJECT SYSTEM
+━━━━━━━━━━━━━━━━━━
+
+* unlimited local projects
+* templates library
+* auto project scaffolding
+* snapshots (local version history)
+* rollback system
+* project cloning
+
+━━━━━━━━━━━━━━━━━━
+⚡ ZERO-CLICK AI BUILDER
+━━━━━━━━━━━━━━━━━━
+
+User types idea → system automatically:
+
+1. Creates project
+2. Chooses tech stack
+3. Generates code
+4. Installs dependencies
+5. Runs project
+6. Opens preview
+7. Fixes errors automatically
+
+No manual steps required.
+
+━━━━━━━━━━━━━━━━━━
+🧠 LOCAL MEMORY & LEARNING
+━━━━━━━━━━━━━━━━━━
+
+* Vector memory database
+* remembers user preferences
+* remembers previous architectures
+* improves future generations
+
+━━━━━━━━━━━━━━━━━━
+🔁 SELF-IMPROVING LOOP
+━━━━━━━━━━━━━━━━━━
+
+Continuous cycle:
+
+Detect error → Fix → Restart → Optimize → Retest
+
+Until stable result achieved.
+
+━━━━━━━━━━━━━━━━━━
+🔐 SECURITY SYSTEM
+━━━━━━━━━━━━━━━━━━
+
+* sandbox execution
+* restricted system access
+* resource limits
+* safe command whitelist
+* local-only networking
+
+━━━━━━━━━━━━━━━━━━
+📊 MONITORING DASHBOARD
+━━━━━━━━━━━━━━━━━━
+
+Display:
+
+* CPU usage
+* RAM usage
+* running projects
+* agent activity
+* error statistics
+* performance score
+
+━━━━━━━━━━━━━━━━━━
+🌐 OFFLINE FIRST REQUIREMENTS
+━━━━━━━━━━━━━━━━━━
+
+System must:
+
+* run on localhost
+* require no login
+* require no internet
+* require no payment
+* work fully offline
+
+━━━━━━━━━━━━━━━━━━
+🏁 FINAL EXPERIENCE
+━━━━━━━━━━━━━━━━━━
+
+When opening the platform locally I can type:
+
+"أنشئ منصة إدارة مصنع مع لوحة تحكم"
+
+and the system automatically:
+
+✔ plans architecture
+✔ builds full application
+✔ generates UI & backend
+✔ runs locally
+✔ shows live preview
+✔ fixes errors automatically
+✔ documents the project
+
+━━━━━━━━━━━━━━━━━━
+BEGIN IMPLEMENTATION NOW.
+
+Upgrade the existing platform architecture step by step and create all required components automatically.
